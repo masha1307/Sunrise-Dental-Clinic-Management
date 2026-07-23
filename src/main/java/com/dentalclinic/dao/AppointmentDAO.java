@@ -1,18 +1,37 @@
 package com.dentalclinic.dao;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+
 import com.dentalclinic.model.Appointment;
+import com.dentalclinic.util.DBConnection;
 
-public interface AppointmentDAO {
+public class AppointmentDAO {
 
-    boolean addAppointment(Appointment appointment);
+    public boolean addAppointment(Appointment appointment) {
 
-    Appointment getAppointmentByNumber(String appointmentNumber);
+        return false;
+    }
 
-    List<Appointment> getAllAppointments();
+    public boolean updateAppointment(Appointment appointment) {
 
-    boolean updateAppointment(Appointment appointment);
+        return false;
+    }
 
-    boolean deleteAppointment(int appointmentId);
+    public boolean deleteAppointment(int appointmentId) {
+
+        return false;
+    }
+
+    public Appointment getAppointmentById(int appointmentId) {
+
+        return null;
+    }
+
+    public List<Appointment> searchAppointments(String keyword) {
+
+        return new ArrayList<>();
+    }
 
 }

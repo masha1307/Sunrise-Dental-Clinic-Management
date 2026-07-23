@@ -5,7 +5,6 @@ public class User {
     private int userId;
     private String username;
     private String password;
-    private String fullName;
     private String role;
 
     // Default Constructor
@@ -13,17 +12,12 @@ public class User {
     }
 
     // Parameterized Constructor
-    public User(int userId, String username, String password,
-                String fullName, String role) {
-
+    public User(int userId, String username, String password, String role) {
         this.userId = userId;
         this.username = username;
         this.password = password;
-        this.fullName = fullName;
         this.role = role;
     }
-
-    // Getters and Setters
 
     public int getUserId() {
         return userId;
@@ -47,14 +41,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getRole() {

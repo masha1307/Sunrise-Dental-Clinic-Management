@@ -1,18 +1,31 @@
 package com.dentalclinic.dao;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+
 import com.dentalclinic.model.Patient;
+import com.dentalclinic.util.DBConnection;
 
-public interface PatientDAO {
+public class PatientDAO {
 
-    boolean addPatient(Patient patient);
+    public boolean addPatient(Patient patient) {
+        return false;
+    }
 
-    Patient getPatientById(int patientId);
+    public boolean updatePatient(Patient patient) {
+        return false;
+    }
 
-    List<Patient> getAllPatients();
+    public boolean deletePatient(int patientId) {
+        return false;
+    }
 
-    boolean updatePatient(Patient patient);
+    public Patient getPatientById(int patientId) {
+        return null;
+    }
 
-    boolean deletePatient(int patientId);
-
+    public List<Patient> getAllPatients() {
+        return new ArrayList<>();
+    }
 }

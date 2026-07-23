@@ -1,14 +1,27 @@
 package com.dentalclinic.dao;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+
 import com.dentalclinic.model.Bill;
+import com.dentalclinic.util.DBConnection;
 
-public interface BillDAO {
+public class BillDAO {
 
-    boolean addBill(Bill bill);
+    public boolean saveBill(Bill bill) {
 
-    Bill getBillByAppointment(int appointmentId);
+        return false;
+    }
 
-    List<Bill> getAllBills();
+    public Bill getBillByAppointmentId(int appointmentId) {
+
+        return null;
+    }
+
+    public List<Bill> getAllBills() {
+
+        return new ArrayList<>();
+    }
 
 }
