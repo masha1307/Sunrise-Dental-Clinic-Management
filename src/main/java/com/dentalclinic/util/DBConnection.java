@@ -6,23 +6,29 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
+    private static Connection connection;
+
+
     // Database details
     private static final String URL =
             "jdbc:mysql://localhost:3306/dental_clinic_db";
 
-    private static final String USER = "root";
+    private static final String USERNAME =
+            "root";
 
-    private static final String PASSWORD = "";
+    private static final String PASSWORD =
+            "";
 
-    // Singleton connection object
-    private static Connection connection;
 
-    // Private constructor
+    // Private constructor prevents object creation
     private DBConnection() {
+
     }
 
-    // Get database connection
+
+    // Singleton method
     public static Connection getConnection() {
+
 
         if (connection == null) {
 
@@ -30,13 +36,13 @@ public class DBConnection {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
+
                 connection = DriverManager.getConnection(
                         URL,
-                        USER,
+                        USERNAME,
                         PASSWORD
                 );
 
-                System.out.println("Database Connected Successfully!");
 
             } catch (ClassNotFoundException | SQLException e) {
 
@@ -45,6 +51,7 @@ public class DBConnection {
             }
 
         }
+
 
         return connection;
 

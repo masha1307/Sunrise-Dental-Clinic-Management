@@ -1,0 +1,407 @@
+
+/*login css*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef5fb;
+
+}
+
+.login-container {
+
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-card {
+    width: 380px;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.15);
+    text-align: center;
+
+}
+
+.login-card h1 {
+    color: #0077b6;
+    font-size: 32px;
+    margin-bottom: 5px;
+
+}
+
+.login-card h2 {
+    color: #555;
+    font-size: 20px;
+    margin-bottom: 30px;
+
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+
+}
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+
+}
+.input-group input:focus {
+    outline: none;
+    border-color: #0077b6;
+
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+button:hover {
+    background-color: #005f8a;
+
+}
+.error-message {
+    background-color: #ffe5e5;
+    color: #d00000;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 14px;
+
+}
+
+
+
+
+/*dashboard css*/
+
+.dashboard-header {
+    background-color: #0077b6;
+    color: white;
+    text-align: center;
+    padding: 25px;
+
+}
+.dashboard-header h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+
+}
+.dashboard-header p {
+    font-size: 18px;
+
+}
+.dashboard-container {
+    width: 85%;
+    margin: 40px auto
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+
+}
+.dashboard-card {
+    background-color: white;
+    width: 280px;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.15);
+
+}
+
+.dashboard-card h2 {
+    color: #0077b6;
+    margin-bottom: 15px;
+
+}
+.dashboard-card p {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+
+}
+.dashboard-btn {
+    display: inline-block;
+    background-color: #0077b6;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+
+}
+.dashboard-btn:hover {
+    background-color: #005f8a;
+
+}
+
+
+
+/* Logout Button */
+
+.logout-section {
+    text-align: center;
+    margin-top: 30px;
+
+}
+
+.logout-btn {
+    background-color: #d00000;
+    color: white;
+    padding: 12px 35px;
+    text-decoration: none;
+    border-radius: 6px;
+
+}
+.logout-btn:hover {
+    background-color: #9d0208;
+
+}
+
+
+
+/* Appointment Page */
+
+
+.page-header {
+    background-color: #0077b6;
+    color: white;
+    text-align: center;
+    padding: 25px;
+
+}
+.appointment-container {
+    width: 500px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.15);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+
+
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+
+
+}
+.form-group textarea {
+    height: 100px;
+    resize: none;
+
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+
+
+}
+
+.btn:hover {
+    background-color: #005f8a;
+
+
+}
+
+.success-message {
+    background-color: #d8f3dc;
+    color: green;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+
+}
+
+.error-message {
+
+
+    background-color: #ffe5e5;
+
+    color: red;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+
+}
+
+.back-section {
+
+
+    text-align: center;
+    margin-top: 20px;
+
+
+}
+.back-btn {
+
+
+    background-color: #333;
+    color: white;
+    padding: 10px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+
+
+}
+
+.back-btn:hover {
+
+
+    background-color: #111;
+
+
+}
+
+/* Search Appointment Page */
+
+
+.search-container {
+
+
+    width: 500px;
+    margin: 40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.15);
+
+
+}
+
+.table-container {
+
+
+    width:90%;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.15);
+
+
+}
+
+.table-container table {
+    width:100%;
+    border-collapse:collapse;
+
+
+}
+
+.table-container th {
+    background:#0077b6;
+    color:white;
+    padding:12px;
+}
+
+.table-container td {
+
+
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:center;
+
+
+}
+.table-container tr:hover {
+    background:#f1f1f1;
+
+}
+
+/* Bill Page */
+
+
+.bill-container {
+    width:500px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.15);
+}
+
+.bill-result {
+    width:500px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.15);
+}
+
+.bill-result h2 {
+    text-align:center;
+    color:#0077b6;
+    margin-bottom:20px;
+}
+
+.bill-result table {
+    width:100%;
+    border-collapse:collapse;
+}
+
+.bill-result th {
+    background:#0077b6;
+    color:white;
+    padding:12px;
+    text-align:left;
+}
+
+.bill-result td {
+    padding:12px;
+    border:1px solid #ddd;
+}
