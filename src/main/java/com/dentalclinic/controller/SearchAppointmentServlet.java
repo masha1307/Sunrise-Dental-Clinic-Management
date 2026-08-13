@@ -6,11 +6,11 @@ import java.util.List;
 import com.dentalclinic.model.Appointment;
 import com.dentalclinic.service.AppointmentService;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/searchAppointment")
 public class SearchAppointmentServlet extends HttpServlet {
@@ -36,7 +36,7 @@ public class SearchAppointmentServlet extends HttpServlet {
 
         request.setAttribute("appointments", appointments);
 
-        request.getRequestDispatcher("jsp/searchAppointment.jsp")
+        request.getRequestDispatcher("/jsp/searchAppointment.jsp")
                 .forward(request, response);
     }
 

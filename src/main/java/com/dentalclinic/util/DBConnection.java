@@ -35,6 +35,7 @@ public class DBConnection {
             try {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
+                System.out.println("Attempting to connect to database: " + URL);
 
 
                 connection = DriverManager.getConnection(
@@ -42,14 +43,27 @@ public class DBConnection {
                         USERNAME,
                         PASSWORD
                 );
+                
+                System.out.println("Database connection established successfully");
 
 
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (ClassNotFoundException e) {
 
+                System.err.println("ERROR: MySQL JDBC Driver not found");
+                e.printStackTrace();
+
+            } catch (SQLException e) {
+
+                System.err.println("ERROR: Failed to connect to database");
+                System.err.println("SQL State: " + e.getSQLState());
+                System.err.println("Error Code: " + e.getErrorCode());
+                System.err.println("Message: " + e.getMessage());
                 e.printStackTrace();
 
             }
 
+        } else {
+            System.out.println("Using existing database connection");
         }
 
 

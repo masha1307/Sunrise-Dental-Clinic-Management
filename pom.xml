@@ -5,14 +5,17 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>com.dentalclinic</groupId>
     <artifactId>DentalClinicManagement</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <packaging>war</packaging>
 
 
+
     <dependencies>
+
 
         <!-- MySQL Database Driver -->
         <dependency>
@@ -22,42 +25,114 @@
         </dependency>
 
 
-        <!-- Jakarta Servlet API (Tomcat 10+) -->
+
+        <!-- Java EE Servlet API (Tomcat 9) -->
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+
+
+        <!-- Java EE JSP API -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+
+
+
+        <!-- JSTL API -->
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
+
+
+        <!-- JSTL Implementation -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.servlet.jsp.jstl</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
 
 
     </dependencies>
 
 
+
+
     <build>
+
+        <finalName>DentalClinicManagement</finalName>
+
         <plugins>
 
-            <!-- Maven Compiler Plugin for Java 21 -->
+
+            <!-- Java Compiler -->
             <plugin>
+
                 <groupId>org.apache.maven.plugins</groupId>
+
                 <artifactId>maven-compiler-plugin</artifactId>
+
                 <version>3.13.0</version>
 
+
                 <configuration>
+
                     <source>21</source>
+
                     <target>21</target>
+
                 </configuration>
+
             </plugin>
+
+
 
 
             <!-- WAR Plugin -->
             <plugin>
+
                 <groupId>org.apache.maven.plugins</groupId>
+
                 <artifactId>maven-war-plugin</artifactId>
+
                 <version>3.4.0</version>
+
+                <configuration>
+                    <warName>DentalClinicManagement</warName>
+                </configuration>
+
+            </plugin>
+
+
+
+            <!-- Jetty 9 uses the javax.servlet API used by this application -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.57.v20241219</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/DentalClinicManagement</contextPath>
+                    </webApp>
+                    <httpConnector>
+                        <port>8081</port>
+                    </httpConnector>
+                </configuration>
             </plugin>
 
         </plugins>
+
+
     </build>
 
 

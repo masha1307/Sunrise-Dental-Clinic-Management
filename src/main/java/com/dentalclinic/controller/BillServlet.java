@@ -2,14 +2,16 @@ package com.dentalclinic.controller;
 
 import java.io.IOException;
 
+import com.dentalclinic.model.Appointment;
 import com.dentalclinic.model.Bill;
+import com.dentalclinic.service.AppointmentService;
 import com.dentalclinic.service.BillService;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/bill")
 public class BillServlet extends HttpServlet {
@@ -17,10 +19,12 @@ public class BillServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private BillService billService;
+    private AppointmentService appointmentService;
 
     @Override
     public void init() throws ServletException {
         billService = new BillService();
+        appointmentService = new AppointmentService();
     }
 
     @Override
@@ -34,7 +38,8 @@ public class BillServlet extends HttpServlet {
 
         double treatmentFee = Double.parseDouble(request.getParameter("treatmentFee"));
 
-        double discount = Double.parseDouble(request.getParameter("discount"));
+        String discountParam = request.getParameter("discount");
+        double discount = (discountParam == null || discountParam.isEmpty()) ? 0.0 : Double.parseDouble(discountParam);
 
         // Calculate total bill
         double totalAmount = billService.calculateBill(
@@ -65,7 +70,7 @@ public class BillServlet extends HttpServlet {
 
         }
 
-        request.getRequestDispatcher("jsp/bill.jsp")
+        request.getRequestDispatcher("/jsp/bill.jsp")
                 .forward(request, response);
     }
 
@@ -74,6 +79,14 @@ public class BillServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.sendRedirect("jsp/bill.jsp");
+        String appointmentIdParam = request.getParameter("appointmentId");
+        if (appointmentIdParam != null && !appointmentIdParam.isEmpty()) {
+            int appointmentId = Integer.parseInt(appointmentIdParam);
+            Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+            request.setAttribute("appointment", appointment);
+        }
+
+        request.getRequestDispatcher("/jsp/bill.jsp")
+                .forward(request, response);
     }
 }

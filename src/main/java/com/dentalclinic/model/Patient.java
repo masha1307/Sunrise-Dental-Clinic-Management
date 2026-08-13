@@ -7,19 +7,21 @@ public class Patient {
     private int age;
     private String gender;
     private String contactNumber;
+    private String email;
     private String address;
 
     public Patient() {
     }
 
     public Patient(int patientId, String patientName, int age,
-                   String gender, String contactNumber, String address) {
+                   String gender, String contactNumber, String email, String address) {
 
         this.patientId = patientId;
         this.patientName = patientName;
         this.age = age;
         this.gender = gender;
         this.contactNumber = contactNumber;
+        this.email = email;
         this.address = address;
     }
 
@@ -61,6 +63,14 @@ public class Patient {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAddress() {

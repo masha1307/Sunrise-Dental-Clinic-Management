@@ -5,10 +5,12 @@ import java.util.List;
 import com.dentalclinic.dao.AppointmentDAO;
 import com.dentalclinic.model.Appointment;
 
+
 public class AppointmentService {
 
 
     private AppointmentDAO appointmentDAO;
+
 
 
     public AppointmentService() {
@@ -18,30 +20,9 @@ public class AppointmentService {
     }
 
 
-    public boolean addAppointment(Appointment appointment) {
 
-
-        if (appointment == null) {
-            return false;
-        }
-
-
-        if (appointment.getPatientId() <= 0) {
-            return false;
-        }
-
-
-        if (appointment.getDentistId() <= 0) {
-            return false;
-        }
-
-
-        if (appointment.getAppointmentDate() == null ||
-                appointment.getAppointmentDate().isEmpty()) {
-
-            return false;
-        }
-
+    // Add Appointment
+    public int addAppointment(Appointment appointment) {
 
         return appointmentDAO.addAppointment(appointment);
 
@@ -49,13 +30,10 @@ public class AppointmentService {
 
 
 
+
+
+    // Update Appointment
     public boolean updateAppointment(Appointment appointment) {
-
-
-        if (appointment == null) {
-            return false;
-        }
-
 
         return appointmentDAO.updateAppointment(appointment);
 
@@ -63,13 +41,10 @@ public class AppointmentService {
 
 
 
+
+
+    // Delete Appointment
     public boolean deleteAppointment(int appointmentId) {
-
-
-        if (appointmentId <= 0) {
-            return false;
-        }
-
 
         return appointmentDAO.deleteAppointment(appointmentId);
 
@@ -77,18 +52,32 @@ public class AppointmentService {
 
 
 
+
+
+    // Get Appointment By ID
+    public Appointment getAppointmentById(int appointmentId) {
+
+        return appointmentDAO.getAppointmentById(appointmentId);
+
+    }
+
+
+
+
+
+    // Search Appointment
     public List<Appointment> searchAppointments(String keyword) {
-
-
-        if (keyword == null) {
-
-            keyword = "";
-
-        }
-
 
         return appointmentDAO.searchAppointments(keyword);
 
     }
+
+    // Get All Appointments
+    public List<Appointment> getAllAppointments() {
+
+        return appointmentDAO.getAllAppointments();
+
+    }
+
 
 }

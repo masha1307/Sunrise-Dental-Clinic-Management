@@ -8,9 +8,11 @@ public class Dentist {
     private String contactNumber;
     private String email;
 
+    // Default constructor
     public Dentist() {
     }
 
+    // Parameterized constructor
     public Dentist(int dentistId, String dentistName,
                    String specialization,
                    String contactNumber,
@@ -22,6 +24,8 @@ public class Dentist {
         this.contactNumber = contactNumber;
         this.email = email;
     }
+
+    // Getters and Setters
 
     public int getDentistId() {
         return dentistId;
