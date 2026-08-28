@@ -41,6 +41,11 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
 
+            // store user role in session (admin or receptionist)
+            com.dentalclinic.model.User user = loginService.getUserByUsername(username);
+            String role = (user != null && user.getRole() != null) ? user.getRole() : "receptionist";
+            session.setAttribute("role", role);
+
             // Redirect to dashboard
             response.sendRedirect(request.getContextPath() + "/jsp/dashboard.jsp");
 

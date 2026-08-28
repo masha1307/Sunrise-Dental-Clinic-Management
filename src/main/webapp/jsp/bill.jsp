@@ -106,26 +106,23 @@
                 %>
 
                 <div class="form-group">
-                    <label for="consultationFee">Consultation Fee ($)</label>
+                    <label for="consultationFee">Consultation Fee (Rs.)</label>
                     <input type="number" step="0.01" id="consultationFee" name="consultationFee" placeholder="e.g. 50.00" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="treatmentFee">Treatment Fee ($)</label>
+                    <label for="treatmentFee">Treatment Fee (Rs.)</label>
                     <input type="number" step="0.01" id="treatmentFee" name="treatmentFee" placeholder="e.g. 150.00" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="discount">Discount ($)</label>
+                    <label for="discount">Discount (Rs.)</label>
                     <input type="number" step="0.01" id="discount" name="discount" placeholder="e.g. 10.00" value="0">
                 </div>
 
                 <button type="submit" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                     <span>Calculate & Save Bill</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="1" x2="12" y2="23"></line>
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    </svg>
+                    <span style="font-weight : bold; margin-left : 5px;">Rs.</span>
                 </button>
             </form>
         </div>
@@ -138,7 +135,7 @@
             %>
             <div class="invoice-card">
                 <div class="invoice-header">
-                    <h3 style="font-size: 20px; font-weight: 700; color: var(--text-main);">Dental Care Clinic</h3>
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--text-main);">Sunrice Dental Clinic</h3>
                     <p style="font-size: 13px; color: var(--text-muted);">Official Payment Receipt</p>
                     <div style="margin-top: 10px;">
                         <span class="badge badge-success">Invoice #<%= bill.getAppointmentId() %></span>
@@ -152,22 +149,22 @@
 
                 <div class="invoice-row">
                     <span style="color: var(--text-muted);">Consultation Fee</span>
-                    <span>$<%= String.format("%.2f", bill.getConsultationFee()) %></span>
+                    <span>Rs.<%= String.format("%.2f", bill.getConsultationFee()) %></span>
                 </div>
 
                 <div class="invoice-row">
                     <span style="color: var(--text-muted);">Treatment Fee</span>
-                    <span>$<%= String.format("%.2f", bill.getTreatmentFee()) %></span>
+                    <span>Rs.<%= String.format("%.2f", bill.getTreatmentFee()) %></span>
                 </div>
 
                 <div class="invoice-row">
                     <span style="color: var(--text-muted);">Discount Applied</span>
-                    <span style="color: var(--danger);">-$<%= String.format("%.2f", bill.getDiscount()) %></span>
+                    <span style="color: var(--danger);">-Rs.<%= String.format("%.2f", bill.getDiscount()) %></span>
                 </div>
 
                 <div class="invoice-row total">
                     <span>Total Paid Amount</span>
-                    <span>$<%= String.format("%.2f", bill.getTotalAmount()) %></span>
+                    <span>Rs.<%= String.format("%.2f", bill.getTotalAmount()) %></span>
                 </div>
             </div>
             <%

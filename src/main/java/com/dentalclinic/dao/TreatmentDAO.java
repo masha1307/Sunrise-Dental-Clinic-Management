@@ -123,4 +123,51 @@ public class TreatmentDAO {
     }
 
 
+    public boolean updateTreatment(Treatment treatment) {
+        String sql = "UPDATE treatments SET treatment_name = ? WHERE treatment_id = ?";
+        try {
+            Connection connection = DBConnection.getConnection();
+            
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return false;
+            }
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, treatment.getTreatmentName());
+            statement.setInt(2, treatment.getTreatmentId());
+            
+            int rowsUpdated = statement.executeUpdate();
+            System.out.println("Treatment updated, rows affected: " + rowsUpdated);
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            System.err.println("ERROR updating treatment: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteTreatment(int id) {
+        String sql = "DELETE FROM treatments WHERE treatment_id = ?";
+        try {
+            Connection connection = DBConnection.getConnection();
+            
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return false;
+            }
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            
+            int rowsDeleted = statement.executeUpdate();
+            System.out.println("Treatment deleted, rows affected: " + rowsDeleted);
+            return rowsDeleted > 0;
+        } catch (Exception e) {
+            System.err.println("ERROR deleting treatment: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

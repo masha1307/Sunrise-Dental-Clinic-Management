@@ -72,7 +72,19 @@ if(errorMessage != null){
 <form action="${pageContext.request.contextPath}/patient"
 method="post">
 
-<input type="hidden" name="action" value="add">
+    <div class="form-group">
+        <label>Action</label>
+        <select id="actionSelect" name="action" onchange="onActionChange()" required>
+            <option value="add">Add</option>
+            <option value="update">Update</option>
+            <option value="delete">Delete</option>
+        </select>
+    </div>
+
+    <div class="form-group" id="patientIdGroup" style="display:none;">
+        <label>Patient ID (for update/delete)</label>
+        <input type="number" id="patientId" name="patientId" placeholder="Enter patient ID">
+    </div>
 
 
 
@@ -229,6 +241,29 @@ Back to Dashboard
 </div>
 
 
+
+<script>
+function onActionChange() {
+    var action = document.getElementById('actionSelect').value;
+    var pidGroup = document.getElementById('patientIdGroup');
+    var patientId = document.getElementById('patientId');
+    var addButton = document.querySelector('button[type="submit"]');
+    if (action === 'add') {
+        pidGroup.style.display = 'none';
+        if(patientId) patientId.required = false;
+        if(addButton) addButton.textContent = 'Add Patient';
+    } else if (action === 'update') {
+        pidGroup.style.display = 'block';
+        if(patientId) patientId.required = true;
+        if(addButton) addButton.textContent = 'Update Patient';
+    } else if (action === 'delete') {
+        pidGroup.style.display = 'block';
+        if(patientId) patientId.required = true;
+        if(addButton) addButton.textContent = 'Delete Patient';
+    }
+}
+document.addEventListener('DOMContentLoaded', onActionChange);
+</script>
 
 </body>
 

@@ -27,4 +27,9 @@ public class LoginService {
         return userDAO.login(username, password);
     }
 
+    // Return full user object (includes role)
+    public com.dentalclinic.model.User getUserByUsername(String username) {
+        return new UserDAO().getUserByUsername(username);
+    }
+
 }

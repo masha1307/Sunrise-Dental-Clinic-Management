@@ -17,7 +17,7 @@
                     <path d="M12 2C8 2 4 5 4 10c0 4.5 2 9 4.5 12 .8.9 2 1 2.5 0l1-2 1 2c.5 1 1.7.9 2.5 0C18 19 20 14.5 20 10c0-5-4-8-8-8z"/>
                 </svg>
             </div>
-            <h1>Dental Care Clinic</h1>
+            <h1>SUNRISE DENTAL CLINIC</h1>
             <p>Management & Patient Administration</p>
         </div>
 

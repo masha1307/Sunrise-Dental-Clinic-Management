@@ -17,7 +17,7 @@ public class DBConnection {
             "root";
 
     private static final String PASSWORD =
-            "";
+            "Gangu@123";
 
 
     // Private constructor prevents object creation

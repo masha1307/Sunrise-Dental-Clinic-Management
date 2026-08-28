@@ -24,4 +24,13 @@ public class PatientService {
     public Patient getPatientById(int patientId) {
         return patientDAO.getPatientById(patientId);
     }
+
+    public boolean updatePatient(Patient patient) {
+        return patientDAO.updatePatient(patient);
+    }
+
+    public boolean deletePatient(int patientId) {
+        return patientDAO.deletePatient(patientId);
+    }
 }
+

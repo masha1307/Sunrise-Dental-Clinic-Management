@@ -20,12 +20,19 @@
         <div class="brand-title">DentalCare <span>System</span></div>
     </a>
 
+    <%
+        String role = (String) session.getAttribute("role");
+    %>
     <nav class="nav-links">
         <a href="${pageContext.request.contextPath}/jsp/dashboard.jsp" class="nav-item active">Dashboard</a>
         <a href="${pageContext.request.contextPath}/appointment" class="nav-item">Appointments</a>
         <a href="${pageContext.request.contextPath}/jsp/searchAppointment.jsp" class="nav-item">Search</a>
         <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="nav-item">Billing</a>
         <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="nav-item">Help Guide</a>
+        <% if ("admin".equals(role)) { %>
+            <a href="${pageContext.request.contextPath}/dentist" class="nav-item">Dentist Mgmt</a>
+            <a href="${pageContext.request.contextPath}/treatmentAdmin" class="nav-item">Treatment Mgmt</a>
+        <% } %>
     </nav>
 
     <div class="nav-user">
@@ -92,10 +99,14 @@
 
         <div class="stat-card">
             <div class="stat-icon emerald">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+               </svg>
+
             </div>
             <div class="stat-info">
                 <h4>Billing Module</h4>

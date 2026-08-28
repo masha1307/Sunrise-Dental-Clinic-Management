@@ -33,5 +33,12 @@ public class TreatmentService {
         return treatmentDAO.addTreatment(treatment);
     }
 
+    public boolean updateTreatment(Treatment treatment) {
+        return treatmentDAO.updateTreatment(treatment);
+    }
+
+    public boolean deleteTreatment(int id) {
+        return treatmentDAO.deleteTreatment(id);
+    }
 
 }

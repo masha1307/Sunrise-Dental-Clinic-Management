@@ -52,11 +52,53 @@ public class PatientDAO {
     }
 
     public boolean updatePatient(Patient patient) {
-        return false;
+        String sql = "UPDATE patients SET patient_name = ?, age = ?, gender = ?, contact_number = ?, email = ?, address = ? WHERE patient_id = ?";
+        try {
+            Connection connection = DBConnection.getConnection();
+            
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return false;
+            }
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, patient.getPatientName());
+            statement.setInt(2, patient.getAge());
+            statement.setString(3, patient.getGender());
+            statement.setString(4, patient.getContactNumber());
+            statement.setString(5, patient.getEmail());
+            statement.setString(6, patient.getAddress());
+            statement.setInt(7, patient.getPatientId());
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            System.err.println("ERROR updating patient: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean deletePatient(int patientId) {
-        return false;
+        String sql = "DELETE FROM patients WHERE patient_id = ?";
+        try {
+            Connection connection = DBConnection.getConnection();
+            
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return false;
+            }
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, patientId);
+
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (Exception e) {
+            System.err.println("ERROR deleting patient: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public Patient getPatientById(int patientId) {
