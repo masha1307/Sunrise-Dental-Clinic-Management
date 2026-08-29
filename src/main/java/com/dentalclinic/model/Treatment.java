@@ -6,6 +6,11 @@ public class Treatment {
     private int treatmentId;
 
     private String treatmentName;
+    
+    private Double price;
+    
+    private String durationMinutes;
+
 
 
 
@@ -38,6 +43,25 @@ public class Treatment {
         this.treatmentName = treatmentName;
 
     }
+    
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+    
+    
+    public String getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public void setDurationMinutes(String durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
+
 
 
 }

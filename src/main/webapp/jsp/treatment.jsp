@@ -19,9 +19,11 @@
     int _tCount = -1;
     if (_tObj instanceof java.util.List) { _tCount = ((java.util.List)_tObj).size(); }
 %>
-<div style="margin-bottom:8px; color:#666;">
-    <strong>Debug:</strong> treatments attribute present? <%= (_tObj==null)?"no":"yes" %> | count = <%= _tCount %>
+<%-- 
+<div style="margin-bottom:8px; color: #666;">
+<strong>Debug:</strong> treatments attribute present? <%= (_tObj==null)?"no":"yes" %> | count = <%= _tCount %>
 </div>
+--%>
 
 <c:if test="${not empty successMessage}">
     <div class="success-message">${successMessage}</div>
