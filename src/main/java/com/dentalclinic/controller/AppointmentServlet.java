@@ -43,6 +43,11 @@ public class AppointmentServlet extends HttpServlet {
                         HttpServletResponse response)
                         throws ServletException, IOException {
 
+        String role = (String) request.getSession().getAttribute("role");
+        if (role == null || !"receptionist".equals(role)) {
+            response.sendRedirect(request.getContextPath() + "/jsp/dashboard.jsp");
+            return;
+        }
 
         request.setAttribute(
                 "dentists",
@@ -77,6 +82,11 @@ public class AppointmentServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
+        String role = (String) request.getSession().getAttribute("role");
+        if (role == null || !"receptionist".equals(role)) {
+            response.sendRedirect(request.getContextPath() + "/jsp/dashboard.jsp");
+            return;
+        }
 
         if ("add".equals(action)) {
 

@@ -158,6 +158,32 @@ Add Dentist
 
 </div>
 
+<div style="margin-top:12px;">
+    <h3>Existing Dentists</h3>
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Contact</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="d" items="${dentists}">
+                <tr>
+                    <td>#${d.dentistId}</td>
+                    <td>${d.dentistName}</td>
+                    <td>${d.specialization}</td>
+                    <td>${d.contactNumber}</td>
+                    <td>${d.email}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+
 
 
 

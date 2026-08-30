@@ -70,7 +70,18 @@ public class TreatmentDAO {
                         resultSet.getString("treatment_name")
                 );
 
+                // price (nullable)
+                try {
+                    Object obj = resultSet.getObject("price");
+                    if (obj != null) {
+                        treatment.setPrice(resultSet.getDouble("price"));
+                    }
+                } catch (Exception ignore) {}
 
+                // duration (nullable)
+                try {
+                    treatment.setDurationMinutes(resultSet.getString("duration_minutes"));
+                } catch (Exception ignore) {}
 
                 treatments.add(treatment);
 
@@ -95,7 +106,7 @@ public class TreatmentDAO {
     }
 
     public boolean addTreatment(Treatment treatment) {
-        String sql = "INSERT INTO treatments (treatment_name) VALUES (?)";
+        String sql = "INSERT INTO treatments (treatment_name, price, duration_minutes) VALUES (?, ?, ?)";
         
         try {
             Connection connection = DBConnection.getConnection();
@@ -108,6 +119,12 @@ public class TreatmentDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setString(1, treatment.getTreatmentName());
+            if (treatment.getPrice() != null) {
+                statement.setDouble(2, treatment.getPrice());
+            } else {
+                statement.setNull(2, java.sql.Types.DECIMAL);
+            }
+            statement.setString(3, treatment.getDurationMinutes());
 
             int rowsInserted = statement.executeUpdate();
             

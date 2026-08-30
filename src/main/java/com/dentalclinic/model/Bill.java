@@ -9,6 +9,11 @@ public class Bill {
     private double discount;
     private double totalAmount;
 
+    // Additional fields for reporting purposes
+    private String appointmentDate;
+    private String patientName;
+    private String appointmentNumber;
+
     public Bill() {
     }
 
@@ -72,5 +77,29 @@ public class Bill {
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(String appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getAppointmentNumber() {
+        return appointmentNumber;
+    }
+
+    public void setAppointmentNumber(String appointmentNumber) {
+        this.appointmentNumber = appointmentNumber;
     }
 }

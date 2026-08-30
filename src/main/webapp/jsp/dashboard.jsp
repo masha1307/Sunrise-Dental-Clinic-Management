@@ -25,9 +25,11 @@
     %>
     <nav class="nav-links">
         <a href="${pageContext.request.contextPath}/jsp/dashboard.jsp" class="nav-item active">Dashboard</a>
-        <a href="${pageContext.request.contextPath}/appointment" class="nav-item">Appointments</a>
         <a href="${pageContext.request.contextPath}/jsp/searchAppointment.jsp" class="nav-item">Search</a>
-        <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="nav-item">Billing</a>
+        <% if ("receptionist".equals(role)) { %>
+            <a href="${pageContext.request.contextPath}/appointment" class="nav-item">Appointments</a>
+            <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="nav-item">Billing</a>
+        <% } %>
         <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="nav-item">Help Guide</a>
         <% if ("admin".equals(role)) { %>
             <a href="${pageContext.request.contextPath}/dentist" class="nav-item">Dentist Mgmt</a>
@@ -117,7 +119,7 @@
 
     <!-- Action Cards Grid -->
     <div class="dashboard-grid">
-        <!-- Card 1 -->
+        <!-- Card 1: Appointment Summary -->
         <div class="dashboard-card">
             <div class="card-body-content">
                 <div class="card-icon-wrapper">
@@ -125,11 +127,11 @@
                         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                     </svg>
                 </div>
-                <h3>Appointment Management</h3>
-                <p>Register new patient visits, assign certified dentists, update treatment slots, or cancel appointments.</p>
+                <h3>Appointment Summary by Date</h3>
+                <p>View appointments for a selected date. Shows patient, dentist, treatment and time slots.</p>
             </div>
-            <a href="${pageContext.request.contextPath}/appointment" class="dashboard-btn">
-                <span>Manage Appointments</span>
+            <a href="${pageContext.request.contextPath}/appointmentSummary" class="dashboard-btn">
+                <span>View by Date</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -137,28 +139,7 @@
             </a>
         </div>
 
-        <!-- Card 2 -->
-        <div class="dashboard-card">
-            <div class="card-body-content">
-                <div class="card-icon-wrapper" style="background: var(--accent-light); color: var(--accent);">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </div>
-                <h3>Search Appointments</h3>
-                <p>Lookup patient history and active bookings instantly by Appointment ID, Patient ID, or treatment date.</p>
-            </div>
-            <a href="${pageContext.request.contextPath}/jsp/searchAppointment.jsp" class="dashboard-btn" style="background: var(--accent-light); color: var(--accent);">
-                <span>Search Records</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-            </a>
-        </div>
-
-        <!-- Card 3 -->
+        <!-- Card 2: Billing Summary -->
         <div class="dashboard-card">
             <div class="card-body-content">
                 <div class="card-icon-wrapper" style="background: var(--success-light); color: var(--success);">
@@ -167,11 +148,11 @@
                         <line x1="2" y1="10" x2="22" y2="10"></line>
                     </svg>
                 </div>
-                <h3>Billing & Invoicing</h3>
-                <p>Calculate consultation fees, apply treatment discounts, and generate official patient bill receipts.</p>
+                <h3>View Billing by Date</h3>
+                <p>Show billing records for all appointments on a chosen date. Useful for end-of-day reconciliation.</p>
             </div>
-            <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="dashboard-btn" style="background: var(--success-light); color: var(--success);">
-                <span>Generate Bill</span>
+            <a href="${pageContext.request.contextPath}/billingSummary" class="dashboard-btn" style="background: var(--success-light); color: var(--success);">
+                <span>View Billing</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -179,27 +160,27 @@
             </a>
         </div>
 
-        <!-- Card 4 -->
+        <!-- Card 3: Manage Receptionists -->
         <div class="dashboard-card">
             <div class="card-body-content">
-                <div class="card-icon-wrapper" style="background: #e0e7ff; color: #4f46e5;">
+                <div class="card-icon-wrapper" style="background: var(--accent-light); color: var(--accent);">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
+                        <path d="M6 20v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1"></path>
                     </svg>
                 </div>
-                <h3>Help & Guidelines</h3>
-                <p>Access clinic system operation manuals, staff instructions, and step-by-step workflow procedures.</p>
+                <h3>Manage Receptionists</h3>
+                <p>View and manage receptionist accounts and roles.</p>
             </div>
-            <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="dashboard-btn" style="background: #e0e7ff; color: #4f46e5;">
-                <span>View User Guide</span>
+            <a href="${pageContext.request.contextPath}/jsp/staff_management.jsp" class="dashboard-btn" style="background: var(--accent-light); color: var(--accent);">
+                <span>Manage Receptionists</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
             </a>
         </div>
+
     </div>
 </main>
 

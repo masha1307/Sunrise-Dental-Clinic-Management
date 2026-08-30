@@ -32,6 +32,12 @@ public class BillServlet extends HttpServlet {
                           HttpServletResponse response)
             throws ServletException, IOException {
 
+        String role = (String) request.getSession().getAttribute("role");
+        if (role == null || !"receptionist".equals(role)) {
+            response.sendRedirect(request.getContextPath() + "/jsp/dashboard.jsp");
+            return;
+        }
+
         int appointmentId = Integer.parseInt(request.getParameter("appointmentId"));
 
         double consultationFee = Double.parseDouble(request.getParameter("consultationFee"));
@@ -78,6 +84,12 @@ public class BillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
+
+        String role = (String) request.getSession().getAttribute("role");
+        if (role == null || !"receptionist".equals(role)) {
+            response.sendRedirect(request.getContextPath() + "/jsp/dashboard.jsp");
+            return;
+        }
 
         String appointmentIdParam = request.getParameter("appointmentId");
         if (appointmentIdParam != null && !appointmentIdParam.isEmpty()) {

@@ -377,6 +377,48 @@ public class AppointmentDAO {
 
 
     // ==========================
+    // GET APPOINTMENTS BY DATE
+    // ==========================
+    public List<Appointment> getAppointmentsByDate(String date) {
+        List<Appointment> appointments = new ArrayList<>();
+
+        String sql =
+                "SELECT a.*, p.patient_name, d.dentist_name, t.treatment_name "
+                + "FROM appointments a "
+                + "LEFT JOIN patients p ON a.patient_id = p.patient_id "
+                + "LEFT JOIN dentists d ON a.dentist_id = d.dentist_id "
+                + "LEFT JOIN treatments t ON a.treatment_id = t.treatment_id "
+                + "WHERE a.appointment_date = ? "
+                + "ORDER BY a.appointment_time ASC";
+
+        try {
+            Connection connection = DBConnection.getConnection();
+
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return appointments;
+            }
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, date);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Appointment appt = mapAppointment(resultSet);
+                        appointments.add(appt);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Get Appointments By Date Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return appointments;
+    }
+
+    // ==========================
     // SEARCH APPOINTMENTS
     // ==========================
     public List<Appointment> searchAppointments(String keyword) {

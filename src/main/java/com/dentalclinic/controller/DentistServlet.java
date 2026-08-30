@@ -32,6 +32,9 @@ public class DentistServlet extends HttpServlet {
                         HttpServletResponse response)
                         throws ServletException, IOException {
 
+        // load dentists to show in management page
+        java.util.List<Dentist> dentists = dentistService.getAllDentists();
+        request.setAttribute("dentists", dentists);
         request.getRequestDispatcher(
                 "/jsp/dentist.jsp"
         ).forward(request, response);

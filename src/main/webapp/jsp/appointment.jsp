@@ -21,11 +21,18 @@
         <div class="brand-title">DentalCare <span>System</span></div>
     </a>
 
+    <%
+        String role = (String) session.getAttribute("role");
+    %>
     <nav class="nav-links">
         <a href="${pageContext.request.contextPath}/jsp/dashboard.jsp" class="nav-item">Dashboard</a>
-        <a href="${pageContext.request.contextPath}/appointment" class="nav-item active">Appointments</a>
+        <% if ("receptionist".equals(role)) { %>
+            <a href="${pageContext.request.contextPath}/appointment" class="nav-item active">Appointments</a>
+            <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="nav-item">Billing</a>
+        <% } else { %>
+            <a href="${pageContext.request.contextPath}/appointmentSummary" class="nav-item active">Appointments</a>
+        <% } %>
         <a href="${pageContext.request.contextPath}/jsp/searchAppointment.jsp" class="nav-item">Search</a>
-        <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="nav-item">Billing</a>
         <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="nav-item">Help Guide</a>
     </nav>
 
