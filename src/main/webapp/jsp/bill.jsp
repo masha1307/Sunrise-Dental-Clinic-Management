@@ -118,14 +118,21 @@
                     <input type="number" step="0.01" id="consultationFee" name="consultationFee" placeholder="e.g. 50.00" required>
                 </div>
 
+                <%
+                    Double autoTreatmentFee = (Double) request.getAttribute("autoTreatmentFee");
+                %>
                 <div class="form-group">
-                    <label for="treatmentFee">Treatment Fee (Rs.)</label>
-                    <input type="number" step="0.01" id="treatmentFee" name="treatmentFee" placeholder="e.g. 150.00" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="discount">Discount (Rs.)</label>
-                    <input type="number" step="0.01" id="discount" name="discount" placeholder="e.g. 10.00" value="0">
+                    <label for="treatmentFee">
+                        Treatment Fee (Rs.)
+                        <% if (autoTreatmentFee != null) { %>
+                            <span class="badge badge-success" style="margin-left:6px; text-transform:none; letter-spacing:0;">Auto-filled</span>
+                        <% } %>
+                    </label>
+                    <input type="number" step="0.01" id="treatmentFee" name="treatmentFee"
+                           placeholder="Select an appointment to auto-fill"
+                           value="<%= autoTreatmentFee != null ? autoTreatmentFee : "" %>"
+                           <%= autoTreatmentFee != null ? "readonly" : "" %>
+                           required>
                 </div>
 
                 <button type="submit" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
@@ -146,7 +153,7 @@
                     <h3 style="font-size: 20px; font-weight: 700; color: var(--text-main);">Sunrice Dental Clinic</h3>
                     <p style="font-size: 13px; color: var(--text-muted);">Official Payment Receipt</p>
                     <div style="margin-top: 10px;">
-                        <span class="badge badge-success">Invoice #<%= bill.getAppointmentId() %></span>
+                        <span class="badge badge-success">Invoice #<%= bill.getBillId() %></span>
                     </div>
                 </div>
 
@@ -165,14 +172,16 @@
                     <span>Rs.<%= String.format("%.2f", bill.getTreatmentFee()) %></span>
                 </div>
 
-                <div class="invoice-row">
-                    <span style="color: var(--text-muted);">Discount Applied</span>
-                    <span style="color: var(--danger);">-Rs.<%= String.format("%.2f", bill.getDiscount()) %></span>
-                </div>
-
                 <div class="invoice-row total">
                     <span>Total Paid Amount</span>
                     <span>Rs.<%= String.format("%.2f", bill.getTotalAmount()) %></span>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="${pageContext.request.contextPath}/bill?appointmentId=<%= bill.getAppointmentId() %>&print=true"
+                       target="_blank" class="back-btn">
+                        🖨️ Print Bill
+                    </a>
                 </div>
             </div>
             <%

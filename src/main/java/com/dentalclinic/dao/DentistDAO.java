@@ -82,6 +82,11 @@ public class DentistDAO {
 
             Connection connection = DBConnection.getConnection();
 
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return null;
+            }
+
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setInt(1, dentistId);
@@ -113,11 +118,16 @@ public class DentistDAO {
                         resultSet.getString("email")
                 );
 
+                System.out.println("Retrieved dentist with id: " + dentistId);
+
+            } else {
+                System.out.println("No dentist found with id: " + dentistId);
             }
 
 
         } catch (Exception e) {
 
+            System.err.println("ERROR retrieving dentist by id: " + e.getMessage());
             e.printStackTrace();
 
         }
@@ -156,4 +166,66 @@ public class DentistDAO {
             return false;
         }
     }
+
+    // Update dentist
+    public boolean updateDentist(Dentist dentist) {
+        String sql = "UPDATE dentists SET dentist_name = ?, specialization = ?, contact_number = ?, email = ? WHERE dentist_id = ?";
+
+        try {
+            Connection connection = DBConnection.getConnection();
+
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return false;
+            }
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, dentist.getDentistName());
+            statement.setString(2, dentist.getSpecialization());
+            statement.setString(3, dentist.getContactNumber());
+            statement.setString(4, dentist.getEmail());
+            statement.setInt(5, dentist.getDentistId());
+
+            int rowsUpdated = statement.executeUpdate();
+
+            System.out.println("Dentist updated, rows affected: " + rowsUpdated);
+
+            return rowsUpdated > 0;
+
+        } catch (Exception e) {
+            System.err.println("ERROR updating dentist: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Delete dentist
+    public boolean deleteDentist(int dentistId) {
+        String sql = "DELETE FROM dentists WHERE dentist_id = ?";
+
+        try {
+            Connection connection = DBConnection.getConnection();
+
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return false;
+            }
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, dentistId);
+
+            int rowsDeleted = statement.executeUpdate();
+
+            System.out.println("Dentist deleted, rows affected: " + rowsDeleted);
+
+            return rowsDeleted > 0;
+
+        } catch (Exception e) {
+            System.err.println("ERROR deleting dentist: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

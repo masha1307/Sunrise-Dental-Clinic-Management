@@ -117,8 +117,10 @@
         </div>
     </div>
 
-    <!-- Action Cards Grid -->
+    <!-- Action Cards Grid (role-based) -->
     <div class="dashboard-grid">
+    <% if ("admin".equals(role)) { %>
+
         <!-- Card 1: Appointment Summary -->
         <div class="dashboard-card">
             <div class="card-body-content">
@@ -181,6 +183,77 @@
             </a>
         </div>
 
+    <% } else if ("receptionist".equals(role)) { %>
+
+        <!-- Card 1: New Appointment -->
+        <div class="dashboard-card">
+            <div class="card-body-content">
+                <div class="card-icon-wrapper">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <line x1="12" y1="14" x2="12" y2="18"></line>
+                        <line x1="10" y1="16" x2="14" y2="16"></line>
+                    </svg>
+                </div>
+                <h3>Add Appointment</h3>
+                <p>Book a new patient appointment - select dentist, treatment and available time slot.</p>
+            </div>
+            <a href="${pageContext.request.contextPath}/appointment" class="dashboard-btn">
+                <span>Add Appointment</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Card 2: Generate Bill -->
+        <div class="dashboard-card">
+            <div class="card-body-content">
+                <div class="card-icon-wrapper" style="background: var(--success-light); color: var(--success);">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                </div>
+                <h3>Generate Bill</h3>
+                <p>Create and print a billing invoice for a completed patient appointment.</p>
+            </div>
+            <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="dashboard-btn" style="background: var(--success-light); color: var(--success);">
+                <span>Generate Bill</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Card 3: Help Guide -->
+        <div class="dashboard-card">
+            <div class="card-body-content">
+                <div class="card-icon-wrapper" style="background: var(--accent-light); color: var(--accent);">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <h3>Help Guide</h3>
+                <p>Step-by-step instructions for adding appointments and generating bills.</p>
+            </div>
+            <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="dashboard-btn" style="background: var(--accent-light); color: var(--accent);">
+                <span>Help Guide</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+    <% } %>
     </div>
 </main>
 

@@ -6,10 +6,8 @@ public class Bill {
     private int appointmentId;
     private double consultationFee;
     private double treatmentFee;
-    private double discount;
     private double totalAmount;
 
-    // Additional fields for reporting purposes
     private String appointmentDate;
     private String patientName;
     private String appointmentNumber;
@@ -20,14 +18,12 @@ public class Bill {
     public Bill(int billId, int appointmentId,
                 double consultationFee,
                 double treatmentFee,
-                double discount,
                 double totalAmount) {
 
         this.billId = billId;
         this.appointmentId = appointmentId;
         this.consultationFee = consultationFee;
         this.treatmentFee = treatmentFee;
-        this.discount = discount;
         this.totalAmount = totalAmount;
     }
 
@@ -61,14 +57,6 @@ public class Bill {
 
     public void setTreatmentFee(double treatmentFee) {
         this.treatmentFee = treatmentFee;
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
     }
 
     public double getTotalAmount() {
