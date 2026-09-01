@@ -4,7 +4,26 @@
 CREATE DATABASE IF NOT EXISTS dental_clinic_db;
 USE dental_clinic_db;
 
--- Users table
+-- Admins table
+CREATE TABLE IF NOT EXISTS admins (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+
+-- Receptionists table
+CREATE TABLE IF NOT EXISTS receptionists (
+    receptionist_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(100),
+    contact_number VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- Users table (backward compatibility fallback)
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -64,8 +83,18 @@ CREATE TABLE IF NOT EXISTS bills (
 );
 
 -- Insert sample data
+INSERT INTO admins (username, password, name, email) VALUES 
+('admin', 'admin123', 'System Administrator', 'admin@dentalclinic.com')
+ON DUPLICATE KEY UPDATE username=username;
+
+INSERT INTO receptionists (username, password, name, contact_number, email) VALUES 
+('receptionist', 'recep123', 'Emily Davis', '555-0201', 'emily@dentalclinic.com')
+ON DUPLICATE KEY UPDATE username=username;
+
 INSERT INTO users (username, password, role) VALUES 
-('admin', 'admin123', 'admin');
+('admin', 'admin123', 'admin'),
+('receptionist', 'recep123', 'receptionist')
+ON DUPLICATE KEY UPDATE username=username;
 
 INSERT INTO dentists (dentist_name, specialization, contact_number, email) VALUES 
 ('Dr. John Smith', 'Orthodontist', '555-0101', 'john.smith@clinic.com'),

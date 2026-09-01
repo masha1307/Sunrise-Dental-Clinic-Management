@@ -636,7 +636,34 @@ button:active, .btn:active {
     color: var(--primary);
 }
 
-/* ================= Back Action Buttons ================= */
+/* ================= Back Action Buttons & Top Headers ================= */
+.page-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.page-top-header .header-title-area h1,
+.page-top-header .header-title-area h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.page-top-header .header-title-area p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
 .back-section {
     margin-top: 24px;
     text-align: center;
@@ -649,7 +676,7 @@ button:active, .btn:active {
     background: white;
     color: var(--text-muted);
     border: 1px solid var(--border);
-    padding: 10px 20px;
+    padding: 10px 18px;
     border-radius: var(--radius-sm);
     text-decoration: none;
     font-weight: 600;
@@ -659,9 +686,31 @@ button:active, .btn:active {
 }
 
 .back-btn:hover {
-    color: var(--text-main);
-    background: var(--bg);
-    border-color: #cbd5e1;
+    color: var(--primary);
+    background: var(--primary-light);
+    border-color: var(--primary);
+    transform: translateX(-2px);
+}
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.role-badge.admin-role {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.role-badge.recep-role,
+.role-badge.receptionist-role {
+    background: var(--accent-light);
+    color: var(--accent);
 }
 
 .logout-btn {
@@ -749,4 +798,11 @@ button:active, .btn:active {
         box-shadow: none !important;
         border: 1px solid #000 !important;
     }
+    
+    
+    
+    .badge-danger {
+    background: var(--danger-light);
+    color: var(--danger);
+}
 }

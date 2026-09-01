@@ -28,12 +28,15 @@
         <a href="${pageContext.request.contextPath}/jsp/searchAppointment.jsp" class="nav-item">Search</a>
         <% if ("receptionist".equals(role)) { %>
             <a href="${pageContext.request.contextPath}/appointment" class="nav-item">Appointments</a>
+            <a href="${pageContext.request.contextPath}/patient" class="nav-item">Patients</a>
             <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="nav-item">Billing</a>
+            <a href="${pageContext.request.contextPath}/cancellations" class="nav-item">Cancellations</a>
         <% } %>
         <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="nav-item">Help Guide</a>
         <% if ("admin".equals(role)) { %>
             <a href="${pageContext.request.contextPath}/dentist" class="nav-item">Dentist Mgmt</a>
             <a href="${pageContext.request.contextPath}/treatmentAdmin" class="nav-item">Treatment Mgmt</a>
+            <a href="${pageContext.request.contextPath}/receptionist" class="nav-item">Receptionist Mgmt</a>
         <% } %>
     </nav>
 
@@ -172,9 +175,9 @@
                     </svg>
                 </div>
                 <h3>Manage Receptionists</h3>
-                <p>View and manage receptionist accounts and roles.</p>
+                <p>Register, update credentials, and manage receptionist accounts and roles.</p>
             </div>
-            <a href="${pageContext.request.contextPath}/jsp/staff_management.jsp" class="dashboard-btn" style="background: var(--accent-light); color: var(--accent);">
+            <a href="${pageContext.request.contextPath}/receptionist" class="dashboard-btn" style="background: var(--accent-light); color: var(--accent);">
                 <span>Manage Receptionists</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -231,7 +234,52 @@
             </a>
         </div>
 
-        <!-- Card 3: Help Guide -->
+        <!-- Card 3: Cancellations -->
+        <div class="dashboard-card">
+            <div class="card-body-content">
+                <div class="card-icon-wrapper" style="background: var(--danger-light); color: var(--danger);">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h3>Appointment Cancellations</h3>
+                <p>View appointments by date and cancel a booking if the patient can no longer attend.</p>
+            </div>
+            <a href="${pageContext.request.contextPath}/cancellations" class="dashboard-btn" style="background: var(--danger-light); color: var(--danger);">
+                <span>Manage Cancellations</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Card 4: Manage Patients -->
+        <div class="dashboard-card">
+            <div class="card-body-content">
+                <div class="card-icon-wrapper" style="background: var(--primary-light); color: var(--primary);">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3>Manage Patients</h3>
+                <p>Register new patients, edit existing profiles, and maintain up-to-date health records.</p>
+            </div>
+            <a href="${pageContext.request.contextPath}/patient" class="dashboard-btn" style="background: var(--primary-light); color: var(--primary);">
+                <span>Manage Patients</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Card 5: Help Guide -->
         <div class="dashboard-card">
             <div class="card-body-content">
                 <div class="card-icon-wrapper" style="background: var(--accent-light); color: var(--accent);">

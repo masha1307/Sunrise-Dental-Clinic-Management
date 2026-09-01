@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Guide & Support - Dental Care System</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?v=2">
+    <title>User Guide & Support - DentalCare System</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?v=3">
 </head>
 <body>
 
@@ -30,11 +30,12 @@
             <a href="${pageContext.request.contextPath}/appointment" class="nav-item">Appointments</a>
             <a href="${pageContext.request.contextPath}/jsp/bill.jsp" class="nav-item">Billing</a>
         <% } %>
-        <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="nav-item active">Help Guide</a>
         <% if ("admin".equals(role)) { %>
             <a href="${pageContext.request.contextPath}/dentist" class="nav-item">Dentist Mgmt</a>
             <a href="${pageContext.request.contextPath}/treatmentAdmin" class="nav-item">Treatment Mgmt</a>
+            <a href="${pageContext.request.contextPath}/receptionist" class="nav-item">Receptionist Mgmt</a>
         <% } %>
+        <a href="${pageContext.request.contextPath}/jsp/help.jsp" class="nav-item active">Help Guide</a>
     </nav>
 
     <div class="nav-user">
@@ -49,55 +50,24 @@
     </div>
 </header>
 
-<main class="page-container" style="max-width: 950px;">
-    <div class="form-card">
-        <div class="card-header-title">
-            <h2>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                System Documentation & Operations Manual
-            </h2>
-            <span class="badge" style="background: #e0e7ff; color: #4f46e5;">User Guide</span>
-        </div>
+<main class="main-wrapper">
+    <div class="page-container" style="max-width: 950px;">
 
-        <div style="display: grid; gap: 24px;">
-            <!-- Step 1 -->
-            <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid var(--primary);">
-                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--primary);">1. Authentication & Security</h3>
-                <p style="font-size: 14px; color: var(--text-muted);">
-                    Authorized clinic staff members log into the system using assigned staff credentials. Sessions automatically secure system access until logging out.
-                </p>
+        <!-- Top Header with Back to Dashboard Button on the Right Side -->
+        <div class="page-top-header">
+            <div class="header-title-area">
+                <h1>
+                    <span class="card-icon-wrapper" style="width:38px; height:38px; margin-bottom:0; background: #e0e7ff; color: #4f46e5;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </span>
+                    User Guide & Support
+                </h1>
+                <p>System documentation, operation guidelines, and clinic workflow manual.</p>
             </div>
-
-            <!-- Step 2 -->
-            <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid var(--accent);">
-                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--accent);">2. Appointment Management Workflow</h3>
-                <p style="font-size: 14px; color: var(--text-muted);">
-                    Navigate to <strong>Appointments</strong> to schedule patient bookings. Select an operation (Add, Update, Delete), enter Patient ID, choose certified Dentists and Treatments, and assign appointment dates and time slots.
-                </p>
-            </div>
-
-            <!-- Step 3 -->
-            <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid var(--success);">
-                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--success);">3. Searching & Patient Records</h3>
-                <p style="font-size: 14px; color: var(--text-muted);">
-                    Use the <strong>Search Directory</strong> to filter active bookings by Appointment ID, Patient ID, or Date. Results are presented in an interactive table.
-                </p>
-            </div>
-
-            <!-- Step 4 -->
-            <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid #4f46e5;">
-                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: #4f46e5;">4. Billing & Receipt Generation</h3>
-                <p style="font-size: 14px; color: var(--text-muted);">
-                    Navigate to <strong>Billing</strong> to enter consultation fees, procedure treatment costs, and promotional discounts to calculate net payable amounts and preview receipts.
-                </p>
-            </div>
-        </div>
-
-        <div class="back-section" style="margin-top: 32px;">
             <a href="${pageContext.request.contextPath}/jsp/dashboard.jsp" class="back-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -106,6 +76,48 @@
                 <span>Back to Dashboard</span>
             </a>
         </div>
+
+        <div class="form-card">
+            <div class="card-header-title">
+                <h2>Operations Manual</h2>
+                <span class="badge" style="background: #e0e7ff; color: #4f46e5;">System Guide</span>
+            </div>
+
+            <div style="display: grid; gap: 20px;">
+                <!-- Step 1 -->
+                <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid var(--primary);">
+                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--primary);">1. Authentication & Role Permissions</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">
+                        Clinic staff authenticate using assigned usernames and passwords. Admins manage dentist rosters, treatment catalogs, and receptionist accounts.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid var(--accent);">
+                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--accent);">2. Appointment Management Workflow</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">
+                        Navigate to <strong>Appointments</strong> to schedule patient bookings. Select an operation (Add, Update, Delete), enter Patient ID, choose certified Dentists and Treatments, and assign dates and times.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid var(--success);">
+                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--success);">3. Search & Booking Logs</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">
+                        Use the <strong>Search Directory</strong> to filter active bookings by Appointment ID, Patient ID, or Date. Results are presented in an interactive table.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div style="background: var(--bg); padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid #4f46e5;">
+                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: #4f46e5;">4. Invoicing & Billing Generation</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">
+                        Navigate to <strong>Billing</strong> to enter consultation fees, procedure treatment costs, and calculate net payable totals with print receipt support.
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </main>
 

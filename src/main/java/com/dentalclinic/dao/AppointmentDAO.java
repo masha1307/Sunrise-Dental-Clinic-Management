@@ -18,10 +18,6 @@ import java.util.UUID;
 
 public class AppointmentDAO {
 
-    // ==========================
-    // GENERATE APPOINTMENT NUMBER
-    // Example: APT-20260806-A1B2C3
-    // ==========================
     private String generateAppointmentNumber() {
 
         String currentDate = LocalDate.now()
@@ -36,10 +32,6 @@ public class AppointmentDAO {
         return "APT-" + currentDate + "-" + randomCode;
     }
 
-
-    // ==========================
-    // ADD APPOINTMENT
-    // ==========================
     public int addAppointment(Appointment appointment) {
 
         String sql =
@@ -66,24 +58,13 @@ public class AppointmentDAO {
                 statement.setInt(2, appointment.getPatientId());
                 statement.setInt(3, appointment.getDentistId());
                 statement.setInt(4, appointment.getTreatmentId());
-                statement.setString(
-                        5,
-                        appointment.getAppointmentDate()
-                );
-                statement.setString(
-                        6,
-                        appointment.getAppointmentTime()
-                );
+                statement.setString(5, appointment.getAppointmentDate());
+                statement.setString(6, appointment.getAppointmentTime());
 
                 int rows = statement.executeUpdate();
 
-                System.out.println(
-                        "Appointment Number: " + appointmentNumber
-                );
-
-                System.out.println(
-                        "Inserted Rows: " + rows
-                );
+                System.out.println("Appointment Number: " + appointmentNumber);
+                System.out.println("Inserted Rows: " + rows);
 
                 if (rows > 0) {
                     ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -98,29 +79,13 @@ public class AppointmentDAO {
             }
 
         } catch (SQLException e) {
-
-            System.err.println(
-                    "Add Appointment Error: " + e.getMessage()
-            );
-
-            System.err.println(
-                    "SQL State: " + e.getSQLState()
-            );
-
-            System.err.println(
-                    "Error Code: " + e.getErrorCode()
-            );
-
+            System.err.println("Add Appointment Error: " + e.getMessage());
             e.printStackTrace();
         }
 
         return -1;
     }
 
-
-    // ==========================
-    // UPDATE APPOINTMENT
-    // ==========================
     public boolean updateAppointment(Appointment appointment) {
 
         String sql =
@@ -141,77 +106,36 @@ public class AppointmentDAO {
                 return false;
             }
 
-            try (PreparedStatement statement =
-                         connection.prepareStatement(sql)) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
-                statement.setInt(
-                        1,
-                        appointment.getPatientId()
-                );
-
-                statement.setInt(
-                        2,
-                        appointment.getDentistId()
-                );
-
-                statement.setInt(
-                        3,
-                        appointment.getTreatmentId()
-                );
-
-                statement.setString(
-                        4,
-                        appointment.getAppointmentDate()
-                );
-
-                statement.setString(
-                        5,
-                        appointment.getAppointmentTime()
-                );
-
-                statement.setInt(
-                        6,
-                        appointment.getAppointmentId()
-                );
+                statement.setInt(1, appointment.getPatientId());
+                statement.setInt(2, appointment.getDentistId());
+                statement.setInt(3, appointment.getTreatmentId());
+                statement.setString(4, appointment.getAppointmentDate());
+                statement.setString(5, appointment.getAppointmentTime());
+                statement.setInt(6, appointment.getAppointmentId());
 
                 int rows = statement.executeUpdate();
 
-                System.out.println(
-                        "Updated Rows: " + rows
-                );
+                System.out.println("Updated Rows: " + rows);
 
                 return rows > 0;
             }
 
         } catch (SQLException e) {
-
-            System.err.println(
-                    "Update Appointment Error: " + e.getMessage()
-            );
-
-            System.err.println(
-                    "SQL State: " + e.getSQLState()
-            );
-
-            System.err.println(
-                    "Error Code: " + e.getErrorCode()
-            );
-
+            System.err.println("Update Appointment Error: " + e.getMessage());
             e.printStackTrace();
         }
 
         return false;
     }
 
-
     // ==========================
-    // DELETE APPOINTMENT
+    // CANCEL APPOINTMENT
     // ==========================
-    public boolean deleteAppointment(int appointmentId) {
+    public boolean cancelAppointment(int appointmentId) {
 
-        String sql =
-                "DELETE FROM appointments "
-                + "WHERE appointment_id = ?";
+        String sql = "UPDATE appointments SET status = 'cancelled' WHERE appointment_id = ?";
 
         try {
 
@@ -222,44 +146,57 @@ public class AppointmentDAO {
                 return false;
             }
 
-            try (PreparedStatement statement =
-                         connection.prepareStatement(sql)) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
                 statement.setInt(1, appointmentId);
 
                 int rows = statement.executeUpdate();
 
-                System.out.println(
-                        "Deleted Rows: " + rows
-                );
+                System.out.println("Cancelled Rows: " + rows);
 
                 return rows > 0;
             }
 
         } catch (SQLException e) {
-
-            System.err.println(
-                    "Delete Appointment Error: " + e.getMessage()
-            );
-
-            System.err.println(
-                    "SQL State: " + e.getSQLState()
-            );
-
-            System.err.println(
-                    "Error Code: " + e.getErrorCode()
-            );
-
+            System.err.println("Cancel Appointment Error: " + e.getMessage());
             e.printStackTrace();
         }
 
         return false;
     }
 
+    public boolean deleteAppointment(int appointmentId) {
 
-    // ==========================
-    // GET APPOINTMENT BY ID
-    // ==========================
+        String sql = "DELETE FROM appointments WHERE appointment_id = ?";
+
+        try {
+
+            Connection connection = DBConnection.getConnection();
+
+            if (connection == null) {
+                System.err.println("ERROR: Database connection is null");
+                return false;
+            }
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                statement.setInt(1, appointmentId);
+
+                int rows = statement.executeUpdate();
+
+                System.out.println("Deleted Rows: " + rows);
+
+                return rows > 0;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Delete Appointment Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public Appointment getAppointmentById(int appointmentId) {
 
         String sql =
@@ -279,13 +216,11 @@ public class AppointmentDAO {
                 return null;
             }
 
-            try (PreparedStatement statement =
-                         connection.prepareStatement(sql)) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
                 statement.setInt(1, appointmentId);
 
-                try (ResultSet resultSet =
-                             statement.executeQuery()) {
+                try (ResultSet resultSet = statement.executeQuery()) {
 
                     if (resultSet.next()) {
                         return mapAppointment(resultSet);
@@ -294,36 +229,24 @@ public class AppointmentDAO {
             }
 
         } catch (SQLException e) {
-
-            System.err.println(
-                    "Get Appointment Error: " + e.getMessage()
-            );
-
-            System.err.println(
-                    "SQL State: " + e.getSQLState()
-            );
-
-            System.err.println(
-                    "Error Code: " + e.getErrorCode()
-            );
-
+            System.err.println("Get Appointment Error: " + e.getMessage());
             e.printStackTrace();
         }
 
         return null;
     }
 
-
-    // ==========================
-    // GET ALL APPOINTMENTS
-    // ==========================
     public List<Appointment> getAllAppointments() {
 
         List<Appointment> appointments = new ArrayList<>();
 
         String sql =
-                "SELECT * FROM appointments "
-                + "ORDER BY appointment_id DESC";
+                "SELECT a.*, p.patient_name, d.dentist_name, t.treatment_name "
+                + "FROM appointments a "
+                + "LEFT JOIN patients p ON a.patient_id = p.patient_id "
+                + "LEFT JOIN dentists d ON a.dentist_id = d.dentist_id "
+                + "LEFT JOIN treatments t ON a.treatment_id = t.treatment_id "
+                + "ORDER BY a.appointment_id DESC";
 
         try {
 
@@ -334,51 +257,24 @@ public class AppointmentDAO {
                 return appointments;
             }
 
-            try (PreparedStatement statement =
-                         connection.prepareStatement(sql);
-
-                 ResultSet resultSet =
-                         statement.executeQuery()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
 
                 while (resultSet.next()) {
-
-                    Appointment appointment =
-                            mapAppointment(resultSet);
-
-                    appointments.add(appointment);
+                    appointments.add(mapAppointment(resultSet));
                 }
             }
 
-            System.out.println(
-                    "Retrieved "
-                    + appointments.size()
-                    + " appointments from database"
-            );
+            System.out.println("Retrieved " + appointments.size() + " appointments from database");
 
         } catch (SQLException e) {
-
-            System.err.println(
-                    "Get All Appointments Error: " + e.getMessage()
-            );
-
-            System.err.println(
-                    "SQL State: " + e.getSQLState()
-            );
-
-            System.err.println(
-                    "Error Code: " + e.getErrorCode()
-            );
-
+            System.err.println("Get All Appointments Error: " + e.getMessage());
             e.printStackTrace();
         }
 
         return appointments;
     }
 
-
-    // ==========================
-    // GET APPOINTMENTS BY DATE
-    // ==========================
     public List<Appointment> getAppointmentsByDate(String date) {
         List<Appointment> appointments = new ArrayList<>();
 
@@ -404,8 +300,7 @@ public class AppointmentDAO {
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
-                        Appointment appt = mapAppointment(resultSet);
-                        appointments.add(appt);
+                        appointments.add(mapAppointment(resultSet));
                     }
                 }
             }
@@ -418,9 +313,6 @@ public class AppointmentDAO {
         return appointments;
     }
 
-    // ==========================
-    // SEARCH APPOINTMENTS
-    // ==========================
     public List<Appointment> searchAppointments(String keyword) {
 
         List<Appointment> appointments = new ArrayList<>();
@@ -446,8 +338,7 @@ public class AppointmentDAO {
                 return appointments;
             }
 
-            try (PreparedStatement statement =
-                         connection.prepareStatement(sql)) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
                 String searchKeyword = "%" + keyword + "%";
 
@@ -456,89 +347,41 @@ public class AppointmentDAO {
                 statement.setString(3, searchKeyword);
                 statement.setString(4, searchKeyword);
 
-                try (ResultSet resultSet =
-                             statement.executeQuery()) {
-
+                try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
-
-                        Appointment appointment =
-                                mapAppointment(resultSet);
-
-                        appointments.add(appointment);
+                        appointments.add(mapAppointment(resultSet));
                     }
                 }
             }
 
-            System.out.println(
-                    "Search Results: "
-                    + appointments.size()
-            );
+            System.out.println("Search Results: " + appointments.size());
 
         } catch (SQLException e) {
-
-            System.err.println(
-                    "Search Appointment Error: " + e.getMessage()
-            );
-
-            System.err.println(
-                    "SQL State: " + e.getSQLState()
-            );
-
-            System.err.println(
-                    "Error Code: " + e.getErrorCode()
-            );
-
+            System.err.println("Search Appointment Error: " + e.getMessage());
             e.printStackTrace();
         }
 
         return appointments;
     }
 
-
-    // ==========================
-    // MAP RESULTSET TO MODEL
-    // ==========================
-    private Appointment mapAppointment(
-            ResultSet resultSet
-    ) throws SQLException {
+    private Appointment mapAppointment(ResultSet resultSet) throws SQLException {
 
         Appointment appointment = new Appointment();
 
-        appointment.setAppointmentId(
-                resultSet.getInt("appointment_id")
-        );
+        appointment.setAppointmentId(resultSet.getInt("appointment_id"));
+        appointment.setPatientId(resultSet.getInt("patient_id"));
+        appointment.setDentistId(resultSet.getInt("dentist_id"));
+        appointment.setTreatmentId(resultSet.getInt("treatment_id"));
+        appointment.setAppointmentDate(resultSet.getString("appointment_date"));
+        appointment.setAppointmentTime(resultSet.getString("appointment_time"));
 
-        appointment.setPatientId(
-                resultSet.getInt("patient_id")
-        );
+        try {
+            appointment.setStatus(resultSet.getString("status"));
+        } catch (Exception ignore) {}
 
-        appointment.setDentistId(
-                resultSet.getInt("dentist_id")
-        );
-
-        appointment.setTreatmentId(
-                resultSet.getInt("treatment_id")
-        );
-
-        appointment.setAppointmentDate(
-                resultSet.getString("appointment_date")
-        );
-
-        appointment.setAppointmentTime(
-                resultSet.getString("appointment_time")
-        );
-
-        appointment.setPatientName(
-                resultSet.getString("patient_name")
-        );
-
-        appointment.setDentistName(
-                resultSet.getString("dentist_name")
-        );
-
-        appointment.setTreatmentName(
-                resultSet.getString("treatment_name")
-        );
+        appointment.setPatientName(resultSet.getString("patient_name"));
+        appointment.setDentistName(resultSet.getString("dentist_name"));
+        appointment.setTreatmentName(resultSet.getString("treatment_name"));
 
         return appointment;
     }
