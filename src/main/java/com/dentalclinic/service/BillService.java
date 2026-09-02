@@ -11,6 +11,10 @@ public class BillService {
         billDAO = new BillDAO();
     }
 
+    public BillService(BillDAO billDAO) {
+        this.billDAO = billDAO;
+    }
+
     public double calculateBill(double consultationFee, double treatmentFee) {
         return consultationFee + treatmentFee;
     }

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestConnection",
+            "request": "launch",
+            "mainClass": "com.dentalclinic.util.TestConnection",
+            "projectName": "DentalClinicManagement"
+        },
+        {
+            "type": "java",
             "name": "ConnectionTest",
             "request": "launch",
             "mainClass": "com.dentalclinic.test.ConnectionTest",

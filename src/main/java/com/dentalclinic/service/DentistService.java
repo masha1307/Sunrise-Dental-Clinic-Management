@@ -12,6 +12,10 @@ public class DentistService {
         dentistDAO = new DentistDAO();
     }
 
+    public DentistService(DentistDAO dentistDAO){
+        this.dentistDAO = dentistDAO;
+    }
+
     public List<Dentist> getAllDentists(){
         return dentistDAO.getAllDentists();
     }

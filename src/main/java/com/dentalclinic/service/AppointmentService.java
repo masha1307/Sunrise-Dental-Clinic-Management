@@ -12,6 +12,10 @@ public class AppointmentService {
         appointmentDAO = new AppointmentDAO();
     }
 
+    public AppointmentService(AppointmentDAO appointmentDAO) {
+        this.appointmentDAO = appointmentDAO;
+    }
+
     public int addAppointment(Appointment appointment) {
         return appointmentDAO.addAppointment(appointment);
     }

@@ -12,6 +12,10 @@ public class TreatmentService {
         treatmentDAO = new TreatmentDAO();
     }
 
+    public TreatmentService(TreatmentDAO treatmentDAO){
+        this.treatmentDAO = treatmentDAO;
+    }
+
     public List<Treatment> getAllTreatments(){
         return treatmentDAO.getAllTreatments();
     }

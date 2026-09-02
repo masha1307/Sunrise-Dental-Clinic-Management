@@ -13,6 +13,10 @@ public class PatientService {
         patientDAO = new PatientDAO();
     }
 
+    public PatientService(PatientDAO patientDAO) {
+        this.patientDAO = patientDAO;
+    }
+
     public List<Patient> getAllPatients() {
         return patientDAO.getAllPatients();
     }
