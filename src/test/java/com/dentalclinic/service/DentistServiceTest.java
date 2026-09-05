@@ -132,4 +132,26 @@ class DentistServiceTest {
         assertFalse(result);
         verify(dentistDAO).deleteDentist(1);
     }
+    @Test
+    void testIsDuplicateEmail_WhenEmailExists_ReturnsTrue() {
+        Dentist existingDentist = new Dentist(1, "Dr. John Smith", "Orthodontist", "555-0101", "john.smith@clinic.com");
+        when(dentistDAO.getAllDentists()).thenReturn(Arrays.asList(existingDentist));
+ 
+        boolean result = dentistService.isDuplicateEmail("john.smith@clinic.com");
+ 
+        assertTrue(result, "Should return true when email already exists");
+        verify(dentistDAO).getAllDentists();
+    }
+ 
+    @Test
+    void testIsDuplicateEmail_WhenEmailDoesNotExist_ReturnsFalse() {
+        Dentist existingDentist = new Dentist(1, "Dr. John Smith", "Orthodontist", "555-0101", "john.smith@clinic.com");
+        when(dentistDAO.getAllDentists()).thenReturn(Arrays.asList(existingDentist));
+ 
+        boolean result = dentistService.isDuplicateEmail("new.dentist@clinic.com");
+ 
+        assertFalse(result, "Should return false when email does not exist");
+        verify(dentistDAO).getAllDentists();
+    }
 }
+ 

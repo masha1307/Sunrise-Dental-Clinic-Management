@@ -35,5 +35,10 @@ public class DentistService {
     public boolean deleteDentist(int id) {
         return dentistDAO.deleteDentist(id);
     }
+ 
+    public boolean isDuplicateEmail(String email) {
+        return dentistDAO.getAllDentists().stream()
+                .anyMatch(d -> d.getEmail().equalsIgnoreCase(email));
+    }
 
 }

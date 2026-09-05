@@ -102,6 +102,15 @@
             </div>
         </c:if>
 
+        <!--
+            NOTE ON REPOPULATION:
+            - On a fresh "Add" form, no editDentist / formDentist is present -> fields stay empty.
+            - If the SERVER rejects "add" data (validation failed), the servlet sets "formDentist"
+              so the user's typed (invalid) values are shown again together with the error message.
+            - If we are in "Edit" mode, or the server rejects "update" data, "editDentist" is used.
+        -->
+        <c:set var="displayDentist" value="${not empty editDentist ? editDentist : formDentist}" />
+
         <!-- Add / Edit Dentist Form -->
         <div class="form-card">
             <div class="card-header-title">
@@ -120,7 +129,7 @@
                 </span>
             </div>
 
-            <form action="${pageContext.request.contextPath}/dentist" method="post">
+            <form id="dentistForm" action="${pageContext.request.contextPath}/dentist" method="post" novalidate>
                 <input type="hidden" name="action" value="${not empty editDentist ? 'update' : 'add'}">
 
                 <c:if test="${not empty editDentist}">
@@ -131,29 +140,47 @@
                     <div class="form-group">
                         <label for="dentistName">Dentist Name *</label>
                         <input type="text" id="dentistName" name="dentistName"
-                               value="${not empty editDentist ? editDentist.dentistName : ''}"
-                               placeholder="e.g. Dr. John Smith" required>
+                               value="${not empty displayDentist ? displayDentist.dentistName : ''}"
+                               placeholder="e.g. Dr. John Smith"
+                               pattern="[A-Za-z.'\s]{2,50}"
+                               title="Letters only, 2-50 characters (e.g. Dr. John Smith)"
+                               maxlength="50"
+                               required>
+                        <span class="field-error" id="dentistNameError"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="specialization">Specialization *</label>
                         <input type="text" id="specialization" name="specialization"
-                               value="${not empty editDentist ? editDentist.specialization : ''}"
-                               placeholder="e.g. Orthodontist, General Dentist" required>
+                               value="${not empty displayDentist ? displayDentist.specialization : ''}"
+                               placeholder="e.g. Orthodontist, General Dentist"
+                               pattern="[A-Za-z,\s]{2,50}"
+                               title="Letters only, 2-50 characters"
+                               maxlength="50"
+                               required>
+                        <span class="field-error" id="specializationError"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="contactNumber">Contact Number *</label>
                         <input type="text" id="contactNumber" name="contactNumber"
-                               value="${not empty editDentist ? editDentist.contactNumber : ''}"
-                               placeholder="e.g. 555-0101" required>
+                               value="${not empty displayDentist ? displayDentist.contactNumber : ''}"
+                               placeholder="e.g. 555-0101"
+                               pattern="[0-9+()\-\s]{7,15}"
+                               title="Digits only, 7-15 characters (e.g. 555-0101)"
+                               maxlength="15"
+                               required>
+                        <span class="field-error" id="contactNumberError"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address *</label>
                         <input type="email" id="email" name="email"
-                               value="${not empty editDentist ? editDentist.email : ''}"
-                               placeholder="e.g. doctor@clinic.com" required>
+                               value="${not empty displayDentist ? displayDentist.email : ''}"
+                               placeholder="e.g. doctor@clinic.com"
+                               maxlength="100"
+                               required>
+                        <span class="field-error" id="emailError"></span>
                     </div>
                 </div>
 
@@ -250,6 +277,89 @@
 
     </div>
 </main>
+
+<style>
+    .field-error {
+        display: block;
+        color: var(--danger, #e53e3e);
+        font-size: 12px;
+        margin-top: 4px;
+        min-height: 14px;
+    }
+    .form-group input:invalid {
+        border-color: var(--danger, #e53e3e);
+    }
+</style>
+
+<script>
+    // ---- Frontend (client-side) validation ----
+    // This gives the user instant feedback before the form is even submitted.
+    // The Servlet still re-checks everything on the server, since JS can be bypassed.
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.getElementById('dentistForm');
+        if (!form) return;
+
+        var fields = {
+            dentistName: {
+                regex: /^[A-Za-z.'\s]{2,50}$/,
+                message: 'Name must contain letters only (2-50 characters).'
+            },
+            specialization: {
+                regex: /^[A-Za-z,\s]{2,50}$/,
+                message: 'Specialization must contain letters only (2-50 characters).'
+            },
+            contactNumber: {
+                regex: /^[0-9+()\-\s]{7,15}$/,
+                message: 'Contact number must contain digits only (7-15 characters).'
+            },
+            email: {
+                regex: /^[\w.+-]+@[\w-]+\.[a-zA-Z]{2,}$/,
+                message: 'Please enter a valid email address.'
+            }
+        };
+
+        function validateField(input, rule) {
+            var errorSpan = document.getElementById(input.id + 'Error');
+            var value = input.value.trim();
+
+            if (value === '') {
+                if (errorSpan) errorSpan.textContent = 'This field is required.';
+                return false;
+            }
+            if (!rule.regex.test(value)) {
+                if (errorSpan) errorSpan.textContent = rule.message;
+                return false;
+            }
+            if (errorSpan) errorSpan.textContent = '';
+            return true;
+        }
+
+        // Validate on the fly as the user types
+        Object.keys(fields).forEach(function (fieldId) {
+            var input = document.getElementById(fieldId);
+            if (!input) return;
+            input.addEventListener('input', function () {
+                validateField(input, fields[fieldId]);
+            });
+        });
+
+        // Validate everything again on submit; block submission if anything fails
+        form.addEventListener('submit', function (e) {
+            var allValid = true;
+            Object.keys(fields).forEach(function (fieldId) {
+                var input = document.getElementById(fieldId);
+                if (!input) return;
+                var valid = validateField(input, fields[fieldId]);
+                if (!valid) allValid = false;
+            });
+
+            if (!allValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
