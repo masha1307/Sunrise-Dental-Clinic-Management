@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<!-- Top Navigation Bar -->
 <header class="app-navbar">
     <a href="${pageContext.request.contextPath}/jsp/dashboard.jsp" class="nav-brand">
         <div class="brand-icon">
@@ -57,7 +56,6 @@
 <main class="main-wrapper">
     <div class="page-container">
 
-        <!-- Top Header with Back to Dashboard Button on the Right Side -->
         <div class="page-top-header">
             <div class="header-title-area">
                 <h1>
@@ -121,15 +119,14 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="actionSelect">Operation Action</label>
-                        <select id="actionSelect" name="action" required>
+                        <select id="actionSelect" name="action" required onchange="toggleAppointmentIdField()">
                             <option value="add">Add New Appointment</option>
                             <option value="update">Update Appointment</option>
-                            <option value="delete">Delete Appointment</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="appointmentId">Appointment ID (For Update/Delete)</label>
+                    <div class="form-group" id="appointmentIdGroup" style="display: none;">
+                        <label for="appointmentId">Appointment ID (Required for Update)</label>
                         <input type="text" id="appointmentId" name="appointmentId" placeholder="e.g. 101">
                     </div>
 
@@ -144,7 +141,6 @@
                         </select>
                     </div>
 
-                    <!-- New Patient Form (Hidden by default) -->
                     <div id="newPatientForm" style="display: none; grid-column: 1 / -1; margin-top: 10px; padding: 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
                         <h3 style="margin: 0 0 15px 0; color: var(--primary); font-size: 16px;">New Patient Details</h3>
                         <div class="form-grid">
@@ -229,7 +225,7 @@
 function togglePatientForm() {
     var patientSelect = document.getElementById("patientSelect");
     var newPatientForm = document.getElementById("newPatientForm");
-    
+
     if (patientSelect.value === "new") {
         newPatientForm.style.display = "block";
         document.getElementById("newPatientName").required = true;
@@ -244,6 +240,23 @@ function togglePatientForm() {
         document.getElementById("newPatientContact").required = false;
     }
 }
+
+function toggleAppointmentIdField() {
+    var actionSelect = document.getElementById("actionSelect");
+    var appointmentIdGroup = document.getElementById("appointmentIdGroup");
+    var appointmentIdInput = document.getElementById("appointmentId");
+
+    if (actionSelect.value === "update") {
+        appointmentIdGroup.style.display = "block";
+        appointmentIdInput.required = true;
+    } else {
+        appointmentIdGroup.style.display = "none";
+        appointmentIdInput.required = false;
+        appointmentIdInput.value = "";
+    }
+}
+
+toggleAppointmentIdField();
 </script>
 
 </body>

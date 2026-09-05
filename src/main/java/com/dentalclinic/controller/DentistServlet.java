@@ -121,7 +121,7 @@ public class DentistServlet extends HttpServlet {
             return "Please enter a valid email address (e.g. doctor@clinic.com).";
         }
 
-        return null; // all good
+        return null;
     }
 
     private void handleAdd(HttpServletRequest request) {
@@ -135,14 +135,14 @@ public class DentistServlet extends HttpServlet {
         if (validationError != null) {
             request.setAttribute("errorMessage", validationError);
 
-            // Re-populate the form with what the user typed so they don't lose their input
+      
             Dentist typedDentist = new Dentist();
             typedDentist.setDentistName(name);
             typedDentist.setSpecialization(specialization);
             typedDentist.setContactNumber(contactNumber);
             typedDentist.setEmail(email);
             request.setAttribute("formDentist", typedDentist);
-            return; // stop here - do NOT save to database
+            return; 
         }
 
         try {
@@ -176,7 +176,7 @@ public class DentistServlet extends HttpServlet {
         if (validationError != null) {
             request.setAttribute("errorMessage", validationError);
 
-            // Re-populate the edit form with what the user typed
+           
             try {
                 Dentist typedDentist = new Dentist();
                 typedDentist.setDentistId(Integer.parseInt(request.getParameter("dentistId")));
@@ -186,9 +186,9 @@ public class DentistServlet extends HttpServlet {
                 typedDentist.setEmail(email);
                 request.setAttribute("editDentist", typedDentist);
             } catch (NumberFormatException e) {
-                // ignore, error message already set
+                
             }
-            return; // stop here - do NOT update database
+            return; 
         }
 
         try {

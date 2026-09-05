@@ -23,8 +23,7 @@ public class PatientServlet extends HttpServlet {
         patientService = new PatientService();
     }
 
-    // ------------------------------------------------------------------ GET --
-    @Override
+        @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
                          throws ServletException, IOException {
@@ -65,7 +64,7 @@ public class PatientServlet extends HttpServlet {
         request.getRequestDispatcher("/jsp/patient.jsp").forward(request, response);
     }
 
-    // ----------------------------------------------------------------- POST --
+    
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
@@ -94,7 +93,7 @@ public class PatientServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/patient");
     }
 
-    // -------------------------------------------------------- action helpers --
+
     private void handleAdd(HttpServletRequest request, HttpSession session) {
         try {
             Patient patient = buildPatientFromRequest(request);

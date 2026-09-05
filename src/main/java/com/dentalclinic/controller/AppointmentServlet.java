@@ -90,38 +90,17 @@ public class AppointmentServlet extends HttpServlet {
 
         if ("add".equals(action)) {
 
-
             try {
-
 
                 Appointment appointment = new Appointment();
 
-                String patientIdParam = request.getParameter("patientId");
-                int patientId;
-
-                if ("new".equals(patientIdParam)) {
-                    Patient patient = new Patient();
-                    patient.setPatientName(request.getParameter("newPatientName"));
-                    patient.setAge(Integer.parseInt(request.getParameter("newPatientAge")));
-                    patient.setGender(request.getParameter("newPatientGender"));
-                    patient.setContactNumber(request.getParameter("newPatientContact"));
-                    patient.setEmail(request.getParameter("newPatientEmail"));
-                    patient.setAddress(request.getParameter("newPatientAddress"));
-
-                    boolean patientAdded = patientService.addPatient(patient);
-                    if (patientAdded) {
-                        patientId = patient.getPatientId();
-                    } else {
-                        request.setAttribute("errorMessage", "Failed to add new patient.");
-                        doGet(request, response);
-                        return;
-                    }
-                } else {
-                    patientId = Integer.parseInt(patientIdParam);
+                int patientId = resolvePatientId(request, response);
+                if (patientId == -1) {
+                    doGet(request, response);
+                    return;
                 }
 
                 appointment.setPatientId(patientId);
-
 
                 appointment.setDentistId(
                         Integer.parseInt(
@@ -129,29 +108,23 @@ public class AppointmentServlet extends HttpServlet {
                         )
                 );
 
-
                 appointment.setTreatmentId(
                         Integer.parseInt(
                                 request.getParameter("treatmentId")
                         )
                 );
 
-
                 appointment.setAppointmentDate(
                         request.getParameter("appointmentDate")
                 );
-
 
                 appointment.setAppointmentTime(
                         request.getParameter("appointmentTime")
                 );
 
-
-
                 int appointmentId = appointmentService.addAppointment(appointment);
 
                 if (appointmentId > 0) {
-                    // Redirect to bill page with the newly created appointment ID
                     response.sendRedirect(request.getContextPath() + "/bill?appointmentId=" + appointmentId);
                     return;
                 } else {
@@ -161,28 +134,122 @@ public class AppointmentServlet extends HttpServlet {
                     );
                 }
 
-
-
-            } catch(Exception e){
-
+            } catch (Exception e) {
 
                 e.printStackTrace();
-
 
                 request.setAttribute(
                         "errorMessage",
                         "Invalid appointment details."
                 );
-
             }
 
+            doGet(request, response);
 
+        } else if ("update".equals(action)) {
 
-            doGet(request,response);
+            try {
 
+                String appointmentIdParam = request.getParameter("appointmentId");
 
+                if (appointmentIdParam == null || appointmentIdParam.trim().isEmpty()) {
+                    request.setAttribute("errorMessage",
+                            "Appointment ID is required to update an appointment.");
+                    doGet(request, response);
+                    return;
+                }
+
+                int appointmentId = Integer.parseInt(appointmentIdParam.trim());
+
+                Appointment appointment = new Appointment();
+                appointment.setAppointmentId(appointmentId);
+
+                int patientId = resolvePatientId(request, response);
+                if (patientId == -1) {
+                    doGet(request, response);
+                    return;
+                }
+
+                appointment.setPatientId(patientId);
+
+                appointment.setDentistId(
+                        Integer.parseInt(
+                                request.getParameter("dentistId")
+                        )
+                );
+
+                appointment.setTreatmentId(
+                        Integer.parseInt(
+                                request.getParameter("treatmentId")
+                        )
+                );
+
+                appointment.setAppointmentDate(
+                        request.getParameter("appointmentDate")
+                );
+
+                appointment.setAppointmentTime(
+                        request.getParameter("appointmentTime")
+                );
+
+                boolean success = appointmentService.updateAppointment(appointment);
+
+                if (success) {
+                    request.setAttribute("successMessage",
+                            "Appointment #" + appointmentId + " updated successfully.");
+                } else {
+                    request.setAttribute("errorMessage",
+                            "Failed to update appointment. Check that the Appointment ID exists.");
+                }
+
+            } catch (NumberFormatException e) {
+
+                request.setAttribute("errorMessage",
+                        "Appointment ID, Dentist, Treatment and Patient must be valid.");
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+
+                request.setAttribute("errorMessage", "Invalid appointment details.");
+            }
+
+            doGet(request, response);
         }
 
+        // NOTE: "delete" branch removed on purpose.
+        // Cancelling an appointment is handled by /cancellations
+        // (AppointmentDAO.cancelAppointment), not here.
+    }
+
+
+    private int resolvePatientId(HttpServletRequest request,
+                                  HttpServletResponse response) {
+
+        String patientIdParam = request.getParameter("patientId");
+
+        if ("new".equals(patientIdParam)) {
+
+            Patient patient = new Patient();
+            patient.setPatientName(request.getParameter("newPatientName"));
+            patient.setAge(Integer.parseInt(request.getParameter("newPatientAge")));
+            patient.setGender(request.getParameter("newPatientGender"));
+            patient.setContactNumber(request.getParameter("newPatientContact"));
+            patient.setEmail(request.getParameter("newPatientEmail"));
+            patient.setAddress(request.getParameter("newPatientAddress"));
+
+            boolean patientAdded = patientService.addPatient(patient);
+
+            if (patientAdded) {
+                return patient.getPatientId();
+            } else {
+                request.setAttribute("errorMessage", "Failed to add new patient.");
+                return -1;
+            }
+
+        } else {
+            return Integer.parseInt(patientIdParam);
+        }
     }
 
 }

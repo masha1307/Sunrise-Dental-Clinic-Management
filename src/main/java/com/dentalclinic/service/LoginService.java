@@ -10,17 +10,14 @@ public class LoginService {
 
     private AdminDAO adminDAO;
     private ReceptionistDAO receptionistDAO;
-
     public LoginService() {
         this.adminDAO = new AdminDAO();
         this.receptionistDAO = new ReceptionistDAO();
     }
-
     public LoginService(AdminDAO adminDAO, ReceptionistDAO receptionistDAO) {
         this.adminDAO = adminDAO;
         this.receptionistDAO = receptionistDAO;
     }
-
     public boolean login(String username, String password) {
         if (username == null || username.trim().isEmpty()) {
             return false;
@@ -28,7 +25,6 @@ public class LoginService {
         if (password == null || password.trim().isEmpty()) {
             return false;
         }
-
         String trimmedUser = username.trim();
         String trimmedPass = password.trim();
 
@@ -36,15 +32,12 @@ public class LoginService {
         if (adminDAO.login(trimmedUser, trimmedPass)) {
             return true;
         }
-
         // 2. Check Receptionists table
         if (receptionistDAO.login(trimmedUser, trimmedPass)) {
             return true;
         }
-
         return false;
     }
-
     // Return unified user object with role for session management
     public User getUserByUsername(String username) {
         if (username == null || username.trim().isEmpty()) {

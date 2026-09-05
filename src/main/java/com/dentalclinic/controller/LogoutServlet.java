@@ -23,15 +23,15 @@ public class LogoutServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get the current session (if one exists)
+       
         HttpSession session = request.getSession(false);
 
-        // Destroy the session
+     
         if (session != null) {
             session.invalidate();
         }
 
-        // Redirect to login page
+    
         response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
     }
 

@@ -11,8 +11,6 @@ public class ValidationUtil {
 
     }
 
-
-
     // Validate phone number
     public static boolean isValidPhone(String phone) {
 
@@ -21,12 +19,9 @@ public class ValidationUtil {
             return false;
         }
 
-
         return phone.matches("[0-9]{10}");
 
     }
-
-
 
     // Validate email
     public static boolean isValidEmail(String email) {
